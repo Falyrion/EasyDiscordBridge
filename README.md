@@ -1,5 +1,5 @@
 # DiscordBridge
-DiscordBridge is bukkit plugin that allows a connection between minecraft and discord chat.
+DiscordBridge is bukkit plugin that allows a connection between Minecraft- and Discord chat.
 
 This plugin was made with the spigot API. The discord bot functionality was made with JDA (Java Discord API) 
 (https://github.com/DV8FromTheWorld/JDA)
@@ -10,11 +10,13 @@ This plugin was made with the spigot API. The discord bot functionality was made
 
 <a name="overview"></a>
 # Overview
-Connect your game and discord chat!
+This plugin aims to create an easy connection between your in-game and discord chat! The focus is on the basic 
+functionalities and a simple setup.
 
-### Features
-- Messages send on your discord server will be displayed in the game chat and vise versa.
-- Show events on your discord server, like game-server start/ stop, player join/ quit, player deaths
+- Messages sent on your discord server will be displayed in the game chat and vise versa.
+- Show in-game events on your discord server, like game-server start/ stop, player join/ quit, player deaths
+
+NOTE: This plugin is in a very early stage of development and not been excessively tested yet.
 
 <a name="setup"></a>
 # Setup
@@ -25,7 +27,8 @@ To use this plugin you need to set up a discord bot. The process is very simple:
 - Navigate to https://discord.com/developers/applications and create a new application. You can choose whatever name 
 fits your need.
 - In your new application, go to `Settings -> Bot` and create a bot. You can choose whatever name fits your need.
-- In your bots settings you will find the `token`. Save it for later steps. Keep it always secret!
+- In your bots settings you will find the `token`. Save it for later steps. This token is important. Keep it always a 
+secret!
 - In your application under `Settings -> OAuth2` find your `client ID`. With that ID you can invite your new bot to 
 your discord server. To do so, navigate to `discordapp.com/oauth2/authorize?client_id=XXXXXXX&scope=bot` but replace 
 the "XXXXXXX" with your client ID.
@@ -40,7 +43,7 @@ option to copy the ID. Write your wanted ID(s) down for later.
 the server. ATTENTION: The bot will not work just yet!
 - After the server has restarted, you will find a new folder in your servers plugin-folder, named like the plugin. 
 Open the `config.yml` file inside that folder with a text editor of your choice.
-- Inside the config look out for the following parts:
+- Inside the config lookout for the following parts:
   - `clientID` -> Replace the "0" with your client-ID
   - `textChannelRead` -> Replace the "0" with the ID of the channel you want the bot to read messages from
   - `textChannelWrite` -> Replace the "0" with the ID of the channel you want the bot to send messages to
