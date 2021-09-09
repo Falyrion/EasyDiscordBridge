@@ -1,3 +1,5 @@
+![Banner](images/discordBridgeBanner.png "Banner")
+
 # EasyDiscordBridge
 EasyDiscordBridge is bukkit plugin that allows a connection between Minecraft- and Discord chat.
 
