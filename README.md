@@ -1,5 +1,5 @@
-# DiscordBridge
-DiscordBridge is bukkit plugin that allows a connection between Minecraft- and Discord chat.
+# EasyDiscordBridge
+EasyDiscordBridge is bukkit plugin that allows a connection between Minecraft- and Discord chat.
 
 This plugin was made with the spigot API. The discord bot functionality was made with JDA (Java Discord API) 
 (https://github.com/DV8FromTheWorld/JDA)
