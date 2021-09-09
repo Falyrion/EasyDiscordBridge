@@ -1,0 +1,50 @@
+# ######################################################################################################################
+# EasyDiscordBridge Config
+#
+# For more info and help visit https://github.com/Falyrion/DiscordBridge
+# ######################################################################################################################
+# General (Bot data)
+
+# Bot Client ID ("token")
+clientID: "0"
+
+# The discord channel to read messages from (channel ID, not channel name)
+textChannelRead: "0"
+
+# The discord channel to send messages to (channel ID, not channel name)
+textChannelWrite: "0"
+
+# ######################################################################################################################
+# Discord messages
+
+# Note:
+# -> %p will be replaced with player name/ discord name. DO NOT DELETE THIS %p.
+# -> %s will be replaced with the message. DO NOT DELETE THIS %s.
+# -> For messages that go to discord, follow discords message formatting options.
+# -> For messages that go to the game, follow minecrafts message formatting options.
+
+# Message format for messages from discord to the game
+playerMessageToGame: "§6§l[Discord] §6%p: §r%s"
+
+# Message format for messages from the game to discord
+playerMessageToDiscord: "[%p] %s"
+
+# Call in discord chat when the server started
+callServerStart: true
+serverStartMessage: ":white_check_mark: **Server started and online!**"
+
+# Call in discord chat when the server stopped
+callServerStop: true
+serverStopMessage: ":x: **Server stopped and offline!**"
+
+# Write in discord chat that a player joined the game?
+callPlayerJoin: true
+playerJoinMessage: "**%p joined the game**"
+
+# Write in discord chat that a player quit the game?
+callPlayerQuit: true
+playerQuitMessage: "**%p has left the game**"
+
+# Write in discord chat that a player died (with reason)?
+callPlayerDeath: true
+
