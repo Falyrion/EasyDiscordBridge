@@ -3,8 +3,7 @@
 # EasyDiscordBridge
 EasyDiscordBridge is bukkit plugin that allows a connection between Minecraft- and Discord chat.
 
-This is a plugin for bukkit 1.17+. The discord functionality of this plugin was made with JDA (Java Discord API) 
-(https://github.com/DV8FromTheWorld/JDA)
+This is a plugin for bukkit 1.17+.
 
 ### Contents
 - [Overview](#overview)
@@ -19,6 +18,9 @@ functionalities and a simple setup.
 - Show in-game events on your discord server, like game-server start/ stop, player join/ quit, player deaths
 
 NOTE: This plugin is in a very early stage of development and not been excessively tested yet.
+
+The discord functionality of this plugin was made with JDA (Java Discord API) 
+(https://github.com/DV8FromTheWorld/JDA)
 
 <a name="setup"></a>
 # Setup
