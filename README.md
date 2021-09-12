@@ -3,7 +3,7 @@
 # EasyDiscordBridge
 EasyDiscordBridge is bukkit plugin that allows a connection between Minecraft- and Discord chat.
 
-This plugin was made with the spigot API. The discord bot functionality was made with JDA (Java Discord API) 
+This is a plugin for bukkit 1.17+. The discord functionality of this plugin was made with JDA (Java Discord API) 
 (https://github.com/DV8FromTheWorld/JDA)
 
 ### Contents
@@ -23,6 +23,9 @@ NOTE: This plugin is in a very early stage of development and not been excessive
 <a name="setup"></a>
 # Setup
 To set the plugin and bot up, some simple steps are necessary.
+
+### Dependencies
+Your server needs to run bukkit or any fork of bukkit (spigot, paper, sponge, etc.) for minecraft 1.17+.
 
 ### Set up a discord bot
 To use this plugin you need to set up a discord bot. The process is very simple:
