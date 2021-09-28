@@ -16,7 +16,7 @@ public class GameEventListener_Quit implements Listener {
 
         String playerName = event.getPlayer().getDisplayName();
 
-        DiscordBridgeMain.getInstance().sendMessageToDiscord("", playerName, 4);
+        DiscordBridgeMain.getInstance().sendMessageToDiscord(null, playerName, 4);
 
     }
 }
