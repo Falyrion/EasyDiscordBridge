@@ -20,8 +20,9 @@ textChannelWrite: "0"
 # Note:
 # -> %p will be replaced with player name/ discord name. DO NOT DELETE THIS %p.
 # -> %s will be replaced with the message. DO NOT DELETE THIS %s.
-# -> For messages that go to discord, follow discords message formatting options.
-# -> For messages that go to the game, follow minecrafts message formatting options.
+# -> %% will be replaced with a single %.
+# -> For messages that go to Discord, follow Discord's message formatting options.
+# -> For messages that go to Minecraft, follow Minecraft's message formatting options.
 
 # Message format for messages from discord to the game
 playerMessageToGame: "§6§l[Discord] §6%p: §r%s"
@@ -47,4 +48,4 @@ playerQuitMessage: "**%p has left the game**"
 
 # Write in discord chat that a player died (with reason)?
 callPlayerDeath: true
-
+playerDeathMessage: "**%s**"

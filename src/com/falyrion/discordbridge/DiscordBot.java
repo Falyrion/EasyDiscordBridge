@@ -43,7 +43,7 @@ public class DiscordBot extends ListenerAdapter {
     @Override
     public void onReady(ReadyEvent event) {
         System.out.println("[EasyDiscordBridge] Bot ready and logged in!");
-        DiscordBridgeMain.getInstance().sendMessageToDiscord("", "", 1);
+        DiscordBridgeMain.getInstance().sendMessageToDiscord(null, null, 1);
     }
 
     /**

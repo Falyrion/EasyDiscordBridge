@@ -2,3 +2,7 @@
 /.idea
 /out
 DiscordBridge.iml
+/bin/
+/.settings/
+/.classpath
+/.project

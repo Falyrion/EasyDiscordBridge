@@ -14,9 +14,9 @@ public class GameEventListener_Death implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
 
-        String deathMessage = "**" + event.getDeathMessage() + "**";
+        String deathMessage = event.getDeathMessage();
 
-        DiscordBridgeMain.getInstance().sendMessageToDiscord(deathMessage, "", 5);
+        DiscordBridgeMain.getInstance().sendMessageToDiscord(deathMessage, null, 5);
 
     }
 

@@ -16,7 +16,7 @@ public class GameEventListener_Join implements Listener {
 
         String playerName = event.getPlayer().getDisplayName();
 
-        DiscordBridgeMain.getInstance().sendMessageToDiscord("", playerName, 3);
+        DiscordBridgeMain.getInstance().sendMessageToDiscord(null, playerName, 3);
 
     }
 
