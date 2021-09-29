@@ -1,7 +1,7 @@
 name: DiscordBridge
 author: Falyrion
 description: DiscordBridge
-version: 1.0.0.0
+version: 1.0.2.0
 api-version: 1.17
 
 main: com.falyrion.discordbridge.DiscordBridgeMain

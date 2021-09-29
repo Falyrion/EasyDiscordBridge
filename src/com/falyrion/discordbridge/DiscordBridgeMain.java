@@ -13,6 +13,7 @@ import org.json.simple.JSONValue;
 
 import javax.security.auth.login.LoginException;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Logger;
 
 
 public class DiscordBridgeMain extends JavaPlugin implements Listener {
@@ -32,8 +33,11 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
     private String playerDeathMessage;
     private String playerMessageToGame;
     private String playerMessageToDiscord;
+    private boolean botLoaded = false;
 
     FileConfiguration config = getConfig();
+
+    private final Logger log = Bukkit.getLogger();
 
     DiscordBot bot = new DiscordBot();
 
@@ -41,7 +45,7 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
 
-        System.out.println("[EasyDiscordBridge] starting plugin...");
+        log.info("[EasyDiscordBridge] starting plugin...");
 
         instance = this;
 
@@ -54,22 +58,22 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
         writeChannelID = config.getString("textChannelWrite");
 
         if (discordBotToken == null || readChannelID == null || writeChannelID == null) {
-            System.out.println("[EasyDiscordBridge] Config file not available or invalid.");
+            log.warning("[EasyDiscordBridge] Config file not available or invalid.");
         } else if (discordBotToken.equals("0") || readChannelID.equals("0") || writeChannelID.equals("0")) {
-            System.out.println("[EasyDiscordBridge] Bot data not set up in config file yet. Can not start bot.");
+            log.warning("[EasyDiscordBridge] Bot data not set up in config file yet. Can not start bot. Please update the token and channel IDs in the config file and restart your server.");
         } else {
-            System.out.println("[EasyDiscordBridge] Loaded config:");
-            System.out.println("[EasyDiscordBridge] The bot will read from channel ID: " + readChannelID);
-            System.out.println("[EasyDiscordBridge] The bot will write to channel ID: " + writeChannelID);
+            log.info("[EasyDiscordBridge] Loaded config:");
+            log.info("[EasyDiscordBridge] The bot will read from channel ID: " + readChannelID);
+            log.info("[EasyDiscordBridge] The bot will write to channel ID: " + writeChannelID);
 
             // Create and load discord bot
             boolean botSuccessful = true;
             try {
-                System.out.println("[EasyDiscordBridge] Trying to start bot...");
+                log.info("[EasyDiscordBridge] Trying to start bot...");
                 bot.createBot(discordBotToken);
             } catch (LoginException e) {
                 botSuccessful = false;
-                System.out.println("[EasyDiscordBridge] Failed to start bot. Check if your token is correct.");
+                log.info("[EasyDiscordBridge] Failed to start bot. Check if your token is correct.");
                 e.printStackTrace();
             }
 
@@ -117,22 +121,26 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
                         playerDeathMessage = "**%s**";
                     }
                 }
-                
+
+                botLoaded = true;
+
             }
 
         }
 
-        System.out.println("[EasyDiscordBridge] Plugin v1.0.0.0 enabled");
+        log.info("[EasyDiscordBridge] Plugin v1.0.2.0 enabled");
 
     }
 
     @Override
     public void onDisable() {
 
-        // Send shut down message to discord
-        sendMessageToDiscord(null, null, 2);
+        // Send shut down message to discord if bot is available
+        if (botLoaded) {
+            sendMessageToDiscord(null, null, 2);
+        }
 
-        System.out.println("[EasyDiscordBridge] Plugin v1.0.0.0 disabled");
+        log.info("[EasyDiscordBridge] Plugin v1.0.2.0 disabled");
     }
 
     /**
@@ -142,8 +150,8 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
      * @throws InterruptedException: InterruptedException
      */
     public void sendMessageToGame(String msg, String author) throws ExecutionException, InterruptedException {
-        String safeAuthor = sanitizeForGame(author);
-        String safeMsg = sanitizeForGame(msg);
+        String safeAuthor = sanitizeMessageForGame(author);
+        String safeMsg = sanitizeMessageForGame(msg);
         String fullMessage = applyTemplate(playerMessageToGame, safeMsg, safeAuthor);
 
         Bukkit.getScheduler().callSyncMethod( this, () -> Bukkit.dispatchCommand(
@@ -152,122 +160,121 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
         ).get();
 
     }
-    
+
     /**
-     * Sanitizes user input to ensure it is a valid JSON string and can safely be inserted into Minecraft chat.
-     * @param unsafe the raw data to be sanitized
-     * @return escaped data
+     * Sanitizes user input to from Discord chat ensure it is a valid JSON string and can safely be inserted into Minecraft chat.
+     * @param unsafe: String, The raw data to be sanitized
+     * @return String, The escaped data
      */
-    private String sanitizeForGame(String unsafe) {
+    private String sanitizeMessageForGame(String unsafe) {
         return JSONValue.escape(ChatColor.stripColor(unsafe));
     }
 
     /**
      * Sends a message into the discord chat. Calls method in bot class.
-     * @param msg: String, Message
+     * @param userMsg: String, Message
      * @param type: int, Message Type (0=default, 1=serverStart, 2=serverStop, 3=playerJoin, 4=playerQuit,
      *            5=playerDeath)
      */
     public void sendMessageToDiscord(String userMsg, String userName, int type) {
-        
+
         if (userMsg != null && !userMsg.isEmpty()) {
-            userMsg = sanitizeForDiscord(userMsg);
+            userMsg = sanitizeMessageForDiscord(userMsg);
         }
-        
+
         if (userName != null && !userName.isEmpty()) {
-            userName = sanitizeForDiscord(userName);
+            userName = sanitizeMessageForDiscord(userName);
         }
-        
-        String template = switch (type) {
-        case 0 -> playerMessageToDiscord;
-        case 1 -> serverStartMessage;
-        case 2 -> serverStopMessage;
-        case 3 -> playerJoinMessage;
-        case 4 -> playerQuitMessage;
-        case 5 -> playerDeathMessage;
-        default -> throw new IllegalArgumentException("Unexpected type: " + type);
+
+        String msgTemplate = switch (type) {
+            case 0 -> playerMessageToDiscord;
+            case 1 -> serverStartMessage;
+            case 2 -> serverStopMessage;
+            case 3 -> playerJoinMessage;
+            case 4 -> playerQuitMessage;
+            case 5 -> playerDeathMessage;
+            default -> throw new IllegalArgumentException("Unexpected type: " + type);
         };
-        
-        String discordMsg = applyTemplate(template, userMsg, userName);
-        
+
+        String discordMsg = applyTemplate(msgTemplate, userMsg, userName);
+
         bot.sendMessageOnChannel(writeChannelID, discordMsg);
     }
-    
+
     /**
-     * Sanitizes user input to ensure it is can safely be inserted into Discord chat.
-     * @param unsafe the raw data to be sanitized
-     * @return escaped data
+     * Sanitizes user input to ensure it can safely be inserted into Discord chat.
+     * @param unsafe: String; The raw data to be sanitized
+     * @return String; The escaped data
      */
-    private String sanitizeForDiscord(String unsafe) {
+    private String sanitizeMessageForDiscord(String unsafe) {
         return ChatColor.stripColor(unsafe);
     }
 
     /**
      * Inserts given message and author information into the provided template.
-     * @param template the template to use
-     * @param safeMsg sanitized message, or {@code null} to ignore <tt>%s</tt>
-     * @param safeAuthor sanitized author name, or {@code null} to ignore <tt>%p</tt>
-     * @return the constructed message
+     * @param template: String; The template to use
+     * @param safeMsg: String; Sanitized message, or {@code null} to ignore <tt>%s</tt>
+     * @param safeAuthor: String; Sanitized author name, or {@code null} to ignore <tt>%p</tt>
+     * @return String; The constructed message
      */
     private String applyTemplate(String template, String safeMsg, String safeAuthor) {
-    	if (safeMsg == null && safeAuthor == null) {
-    		return template;
-    	}
-    	
+        if (safeMsg == null && safeAuthor == null) {
+            return template;
+        }
+
         StringBuilder result = new StringBuilder();
-        
+
         for (int i = 0; i < template.length(); i++) {
             char c = template.charAt(i);
-            
+
             // Attempt to interpret the character as the beginning of the sequence
             if (c == '%' && i != template.length() - 1) {
-                
+
                 // Whether the '%' and the following char should be appended themselves
                 boolean consume = true;
-                
+
                 switch (template.charAt(i + 1)) {
-                    
-                // %% - this is an escaped single '%'
-                case '%':
-                    result.append("%");
-                    break;
-                    
-                // %s - replace with message
-                case 's':
-                    if (safeMsg != null) {
-                        result.append(safeMsg);
-                    } else {
-                    	consume = false;
-                    }
-                    break;
-                    
-                // %p - replace with author
-                case 'p':
-                    if (safeAuthor != null) {
-                        result.append(safeAuthor);
-                    } else {
-                    	consume = false;
-                    }
-                    break;
-                    
-                // Someone placed a single % - this is not a sequence
-                default:
-                    consume = false;
-                    break;
+
+                    // %% - this is an escaped single '%'
+                    case '%':
+                        result.append("%");
+                        break;
+
+                    // %s - replace with message
+                    case 's':
+                        if (safeMsg != null) {
+                            result.append(safeMsg);
+                        } else {
+                            consume = false;
+                        }
+                        break;
+
+                    // %p - replace with author
+                    case 'p':
+                        if (safeAuthor != null) {
+                            result.append(safeAuthor);
+                        } else {
+                            consume = false;
+                        }
+                        break;
+
+                    // Someone placed a single % - this is not a sequence
+                    default:
+                        consume = false;
+                        break;
                 }
-                
+
                 if (consume) {
                     // Skip '%' and the following character
                     i += 1;
                     continue;
                 }
             }
-            
+
             result.append(c);
         }
-        
+
         return result.toString();
     }
-    
-}
 
+}

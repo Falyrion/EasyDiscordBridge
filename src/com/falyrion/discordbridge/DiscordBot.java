@@ -6,14 +6,17 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.bukkit.Bukkit;
 
 import javax.security.auth.login.LoginException;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Logger;
 
 
 public class DiscordBot extends ListenerAdapter {
 
     private static JDA discordBot;
+    private final Logger log = Bukkit.getLogger();
 
     /**
      * Creates a discord bot client from a given token
@@ -37,12 +40,12 @@ public class DiscordBot extends ListenerAdapter {
     }
 
     /**
-     * Event Listener for onReady-Event
+     * Event Listener for onReady-Event of Discord Bot
      * @param event: ReadyEvent
      */
     @Override
     public void onReady(ReadyEvent event) {
-        System.out.println("[EasyDiscordBridge] Bot ready and logged in!");
+        log.info("[EasyDiscordBridge] Bot ready and logged in!");
         DiscordBridgeMain.getInstance().sendMessageToDiscord(null, null, 1);
     }
 
@@ -67,10 +70,10 @@ public class DiscordBot extends ListenerAdapter {
                 try {
                     DiscordBridgeMain.getInstance().sendMessageToGame(msgContentRaw, author);
                 } catch (ExecutionException e) {
-                    System.out.println("[EasyDiscordBridge] ExecutionException. Full error log:");
+                    log.warning("[EasyDiscordBridge] ExecutionException. Full error log:");
                     e.printStackTrace();
                 } catch (InterruptedException e) {
-                    System.out.println("[EasyDiscordBridge] InterruptedException. Full error log:");
+                    log.warning("[EasyDiscordBridge] InterruptedException. Full error log:");
                     e.printStackTrace();
                 }
             }

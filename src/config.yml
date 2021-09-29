@@ -1,7 +1,7 @@
 # ######################################################################################################################
 # EasyDiscordBridge Config
 #
-# For more info and help visit https://github.com/Falyrion/DiscordBridge
+# For more info and help visit https://github.com/Falyrion/EasyDiscordBridge
 # ######################################################################################################################
 # General (Bot data)
 
@@ -30,11 +30,11 @@ playerMessageToGame: "§6§l[Discord] §6%p: §r%s"
 # Message format for messages from the game to discord
 playerMessageToDiscord: "[%p] %s"
 
-# Call in discord chat when the server started
+# Call in discord chat when the server started?
 callServerStart: true
 serverStartMessage: ":white_check_mark: **Server started and online!**"
 
-# Call in discord chat when the server stopped
+# Call in discord chat when the server stopped?
 callServerStop: true
 serverStopMessage: ":x: **Server stopped and offline!**"
 
