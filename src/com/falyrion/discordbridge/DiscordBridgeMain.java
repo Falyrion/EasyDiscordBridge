@@ -178,7 +178,7 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
             userName = sanitizeForDiscord(userName);
         }
         
-        String discordMsg = applyTemplate(switch (type) {
+        String template = switch (type) {
         case 0 -> playerMessageToDiscord;
         case 1 -> serverStartMessage;
         case 2 -> serverStopMessage;
@@ -186,7 +186,9 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
         case 4 -> playerQuitMessage;
         case 5 -> playerDeathMessage;
         default -> throw new IllegalArgumentException("Unexpected type: " + type);
-        }, userMsg, userName);
+        };
+        
+        String discordMsg = applyTemplate(template, userMsg, userName);
         
         bot.sendMessageOnChannel(writeChannelID, discordMsg);
     }
@@ -203,11 +205,15 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
     /**
      * Inserts given message and author information into the provided template.
      * @param template the template to use
-     * @param safeMsg sanitized message
+     * @param safeMsg sanitized message, or {@code null} to ignore <tt>%s</tt>
      * @param safeAuthor sanitized author name, or {@code null} to ignore <tt>%p</tt>
      * @return the constructed message
      */
     private String applyTemplate(String template, String safeMsg, String safeAuthor) {
+    	if (safeMsg == null && safeAuthor == null) {
+    		return template;
+    	}
+    	
         StringBuilder result = new StringBuilder();
         
         for (int i = 0; i < template.length(); i++) {
@@ -221,26 +227,30 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
                 
                 switch (template.charAt(i + 1)) {
                     
-                // %s - replace with message
-                case 's':
-                    result.append(safeMsg);
-                    break;
-                    
                 // %% - this is an escaped single '%'
                 case '%':
                     result.append("%");
+                    break;
+                    
+                // %s - replace with message
+                case 's':
+                    if (safeMsg != null) {
+                        result.append(safeMsg);
+                    } else {
+                    	consume = false;
+                    }
                     break;
                     
                 // %p - replace with author
                 case 'p':
                     if (safeAuthor != null) {
                         result.append(safeAuthor);
-                        break;
+                    } else {
+                    	consume = false;
                     }
-                    // else FALL THROUGH
+                    break;
                     
                 // Someone placed a single % - this is not a sequence
-                // (or we FELL THROUGH from %p)
                 default:
                     consume = false;
                     break;
