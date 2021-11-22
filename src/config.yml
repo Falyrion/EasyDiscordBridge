@@ -15,6 +15,18 @@ textChannelRead: "0"
 textChannelWrite: "0"
 
 # ######################################################################################################################
+# Discord-Join-Link-Command
+
+# Enable the /discord command functionality of this plugin
+enableLinkCommand: false
+
+# The message to display when using the command /discord
+discordInfoMessage: "§6§l§nClick here to join our discord server!"
+
+# The link to open when clicked on the discord message
+discordLink: "none"
+
+# ######################################################################################################################
 # Discord messages
 
 # Note:

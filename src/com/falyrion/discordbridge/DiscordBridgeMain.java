@@ -1,5 +1,6 @@
 package com.falyrion.discordbridge;
 
+import commands.Cmd_DiscordLink;
 import gamelistener.GameEventListener_Chat;
 import gamelistener.GameEventListener_Death;
 import gamelistener.GameEventListener_Join;
@@ -24,6 +25,8 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
         return instance;
     }
 
+    public String discordLink;
+    public String discordInfoMsg;
     public String readChannelID;
     private String writeChannelID;
     private String serverStartMessage;
@@ -33,6 +36,7 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
     private String playerDeathMessage;
     private String playerMessageToGame;
     private String playerMessageToDiscord;
+    private boolean enableCmdLink;
     private boolean botLoaded = false;
 
     FileConfiguration config = getConfig();
@@ -52,10 +56,18 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
         // Create config file if not existing
         this.saveDefaultConfig();
 
+        // -------------------------------------------------------------------------------------------------------------
         // Read values from config
+
         String discordBotToken = config.getString("clientID");
         readChannelID = config.getString("textChannelRead");
         writeChannelID = config.getString("textChannelWrite");
+        discordLink = config.getString("discordLink");
+        discordInfoMsg = config.getString("discordInfoMessage");
+        enableCmdLink = config.getBoolean("enableLinkCommand");
+
+        // -------------------------------------------------------------------------------------------------------------
+        // Bot related
 
         if (discordBotToken == null || readChannelID == null || writeChannelID == null) {
             log.warning("[EasyDiscordBridge] Config file not available or invalid.");
@@ -128,7 +140,17 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
 
         }
 
-        log.info("[EasyDiscordBridge] Plugin v1.0.2.0 enabled");
+        // -------------------------------------------------------------------------------------------------------------
+        // Enable Commands
+
+        if (enableCmdLink) {
+            getCommand("discord").setExecutor(new Cmd_DiscordLink());
+        }
+
+        // -------------------------------------------------------------------------------------------------------------
+        // Log
+
+        log.info("[EasyDiscordBridge] Plugin v1.1.0.0 enabled");
 
     }
 
@@ -140,7 +162,7 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
             sendMessageToDiscord(null, null, 2);
         }
 
-        log.info("[EasyDiscordBridge] Plugin v1.0.2.0 disabled");
+        log.info("[EasyDiscordBridge] Plugin v1.1.0.0 disabled");
     }
 
     /**
