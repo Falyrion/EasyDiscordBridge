@@ -9,7 +9,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.bukkit.Bukkit;
 
 import javax.security.auth.login.LoginException;
-import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -45,7 +45,7 @@ public class DiscordBot extends ListenerAdapter {
      */
     @Override
     public void onReady(ReadyEvent event) {
-        log.info("[EasyDiscordBridge] Bot ready and logged in!");
+        log.info("Bot ready and logged in!");
         DiscordBridgeMain.getInstance().sendMessageToDiscord(null, null, 1);
     }
 
@@ -56,27 +56,28 @@ public class DiscordBot extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
 
-        if(event.getChannel().getId().equals(DiscordBridgeMain.getInstance().readChannelID)) {
-            if (!event.getMessage().getAuthor().isBot()) {
+        if (!event.getChannel().getId().equals(DiscordBridgeMain.getInstance().readChannelID)) {
+            return;
+        }
+        
+        if (event.getMessage().getAuthor().isBot()) {
+            return;
+        }
 
-                // Get msg contents
-                Message msg = event.getMessage();
-                String msgContentRaw = msg.getContentRaw();
+        // Get msg contents
+        Message msg = event.getMessage();
+        String msgContentRaw = msg.getContentRaw();
 
-                // Get msg author
-                String author = event.getAuthor().getName();
+        // Get msg author
+        String author = event.getAuthor().getName();
 
-                // Call method in main class to send message in game
-                try {
-                    DiscordBridgeMain.getInstance().sendMessageToGame(msgContentRaw, author);
-                } catch (ExecutionException e) {
-                    log.warning("[EasyDiscordBridge] ExecutionException. Full error log:");
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    log.warning("[EasyDiscordBridge] InterruptedException. Full error log:");
-                    e.printStackTrace();
-                }
-            }
+        // Call method in main class to send message in game
+        try {
+            DiscordBridgeMain.getInstance().sendMessageToGame(msgContentRaw, author);
+        } catch (Exception e) {
+            log.info("Could not handle a Discord message");
+            log.info("Author is \"" + author + "\", message is \"" + msgContentRaw + "\"");
+            log.log(Level.SEVERE, "An exception has occurred while handling a Discord message", e);
         }
     }
 
