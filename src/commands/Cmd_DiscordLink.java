@@ -14,7 +14,6 @@ public class Cmd_DiscordLink implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String commandLabel, String[] arguments) {
 
         if (commandSender instanceof Player) {
-            Player player = (Player) commandSender;
             TextComponent textComponentDiscordLink = new TextComponent(DiscordBridgeMain.getInstance().discordInfoMsg);
             textComponentDiscordLink.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, DiscordBridgeMain.getInstance().discordLink));
             commandSender.spigot().sendMessage(textComponentDiscordLink);

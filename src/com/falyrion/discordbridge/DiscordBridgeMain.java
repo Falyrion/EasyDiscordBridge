@@ -5,6 +5,8 @@ import gamelistener.GameEventListener_Chat;
 import gamelistener.GameEventListener_Death;
 import gamelistener.GameEventListener_Join;
 import gamelistener.GameEventListener_Quit;
+import gamelistener.GameEventListener_SayCommand;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -41,15 +43,13 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
 
     FileConfiguration config = getConfig();
 
-    private final Logger log = Bukkit.getLogger();
+    private final Logger log = getLogger();
 
     DiscordBot bot = new DiscordBot();
 
 
     @Override
     public void onEnable() {
-
-        log.info("[EasyDiscordBridge] starting plugin...");
 
         instance = this;
 
@@ -70,22 +70,19 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
         // Bot related
 
         if (discordBotToken == null || readChannelID == null || writeChannelID == null) {
-            log.warning("[EasyDiscordBridge] Config file not available or invalid.");
+            log.warning("Config file not available or invalid.");
         } else if (discordBotToken.equals("0") || readChannelID.equals("0") || writeChannelID.equals("0")) {
-            log.warning("[EasyDiscordBridge] Bot data not set up in config file yet. Can not start bot. Please update the token and channel IDs in the config file and restart your server.");
+            log.warning("Bot data not set up in config file yet. Can not start bot. Please update the token and channel IDs in the config file and restart your server.");
         } else {
-            log.info("[EasyDiscordBridge] Loaded config:");
-            log.info("[EasyDiscordBridge] The bot will read from channel ID: " + readChannelID);
-            log.info("[EasyDiscordBridge] The bot will write to channel ID: " + writeChannelID);
+            log.info("Read channel ID: " + readChannelID + "; write channel ID: " + writeChannelID);
 
             // Create and load discord bot
             boolean botSuccessful = true;
             try {
-                log.info("[EasyDiscordBridge] Trying to start bot...");
                 bot.createBot(discordBotToken);
             } catch (LoginException e) {
                 botSuccessful = false;
-                log.info("[EasyDiscordBridge] Failed to start bot. Check if your token is correct.");
+                log.warning("Failed to start bot. Check if your token is correct.");
                 e.printStackTrace();
             }
 
@@ -94,6 +91,7 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
 
                 // Register chat events
                 Bukkit.getServer().getPluginManager().registerEvents(new GameEventListener_Chat(), this);
+                Bukkit.getServer().getPluginManager().registerEvents(new GameEventListener_SayCommand(), this);
 
                 // Register other events if enabled in config
                 if (config.getBoolean("callPlayerJoin")) {
@@ -147,11 +145,6 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
             getCommand("discord").setExecutor(new Cmd_DiscordLink());
         }
 
-        // -------------------------------------------------------------------------------------------------------------
-        // Log
-
-        log.info("[EasyDiscordBridge] Plugin v1.1.0.0 enabled");
-
     }
 
     @Override
@@ -161,8 +154,6 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
         if (botLoaded) {
             sendMessageToDiscord(null, null, 2);
         }
-
-        log.info("[EasyDiscordBridge] Plugin v1.1.0.0 disabled");
     }
 
     /**
@@ -180,7 +171,8 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
                 Bukkit.getConsoleSender(),
                 "tellraw @a \"" + fullMessage + "\"")
         ).get();
-
+        
+        log.info("<" + author + "> " + msg);
     }
 
     /**
