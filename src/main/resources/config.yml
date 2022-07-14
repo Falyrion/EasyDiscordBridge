@@ -15,7 +15,7 @@ textChannelRead: "0"
 textChannelWrite: "0"
 
 # ######################################################################################################################
-# Discord-Join-Link-Command
+# Discord Join-Link Command
 
 # Enable the /discord command functionality of this plugin
 enableLinkCommand: false

@@ -2,7 +2,9 @@
 /.idea
 /out
 DiscordBridge.iml
+EasyDiscordBridge.iml
 /bin/
 /.settings/
 /.classpath
 /.project
+/target

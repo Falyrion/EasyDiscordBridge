@@ -30,6 +30,13 @@ public class DiscordBot extends ListenerAdapter {
     }
 
     /**
+     * Shuts down the discord bot on server stop
+     */
+    public void shutdownBot() {
+        discordBot.shutdown();
+    }
+
+    /**
      * Sends a message in a given discord channel
      *
      * @param channelID: String, The channel ID to send the message to
@@ -45,7 +52,7 @@ public class DiscordBot extends ListenerAdapter {
      */
     @Override
     public void onReady(ReadyEvent event) {
-        log.info("Bot ready and logged in!");
+        log.info("[EasyDiscordBridge] Bot ready and logged in!");
         DiscordBridgeMain.getInstance().sendMessageToDiscord(null, null, 1);
     }
 
@@ -75,7 +82,7 @@ public class DiscordBot extends ListenerAdapter {
         try {
             DiscordBridgeMain.getInstance().sendMessageToGame(msgContentRaw, author);
         } catch (Exception e) {
-            log.info("Could not handle a Discord message");
+            log.info("[EasyDiscordBridge] Could not handle a Discord message");
             log.info("Author is \"" + author + "\", message is \"" + msgContentRaw + "\"");
             log.log(Level.SEVERE, "An exception has occurred while handling a Discord message", e);
         }

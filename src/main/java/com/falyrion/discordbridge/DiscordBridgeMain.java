@@ -38,6 +38,7 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
     private String playerDeathMessage;
     private String playerMessageToGame;
     private String playerMessageToDiscord;
+    private final static String pluginName = "[EasyDiscordBridge]";
     private boolean enableCmdLink;
     private boolean botLoaded = false;
 
@@ -70,11 +71,11 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
         // Bot related
 
         if (discordBotToken == null || readChannelID == null || writeChannelID == null) {
-            log.warning("Config file not available or invalid.");
+            log.warning(pluginName + " Config file not available or invalid.");
         } else if (discordBotToken.equals("0") || readChannelID.equals("0") || writeChannelID.equals("0")) {
-            log.warning("Bot data not set up in config file yet. Can not start bot. Please update the token and channel IDs in the config file and restart your server.");
+            log.warning(pluginName + " Bot data not set up in config file yet. Please update the token and channel IDs in the config file and restart your server.");
         } else {
-            log.info("Read channel ID: " + readChannelID + "; write channel ID: " + writeChannelID);
+            log.info(pluginName + " Read channel ID: " + readChannelID + "; Write channel ID: " + writeChannelID);
 
             // Create and load discord bot
             boolean botSuccessful = true;
@@ -82,7 +83,7 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
                 bot.createBot(discordBotToken);
             } catch (LoginException e) {
                 botSuccessful = false;
-                log.warning("Failed to start bot. Check if your token is correct.");
+                log.warning(pluginName + " Failed to start bot. Check if your token is correct.");
                 e.printStackTrace();
             }
 
@@ -154,6 +155,8 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
         if (botLoaded) {
             sendMessageToDiscord(null, null, 2);
         }
+
+        bot.shutdownBot();
     }
 
     /**
