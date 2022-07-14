@@ -137,6 +137,9 @@ public class DiscordBridgeMain extends JavaPlugin implements Listener {
 
             }
 
+            // Metrics
+            Metrics metrics = new Metrics(this, 15774);
+
         }
 
         // -------------------------------------------------------------------------------------------------------------
