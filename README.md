@@ -2,21 +2,16 @@
 
 # EasyDiscordBridge
 <p align="left">
-  <!-- Java -->
-  <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" alt="java"/></a>
-
-  <!-- Discord API -->
-  <a href="https://discord.com/" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/Discord_API-36393e?style=for-the-badge&logo=discord&logoColor=white" alt="discord"/></a>
-
-  <!-- Spigot -->
-  <a href="https://www.spigotmc.org/" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/spigot-FF6F00?style=for-the-badge" alt="spigot"/></a>
-
-  <!-- PaperMC (Spigot fork) -->
-  <a href="https://papermc.io/" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/papermc-4d4c4c?style=for-the-badge" alt="papermc"/></a>
-  
-  <!-- Purpur (Spigot fork) -->
-  <a href="https://purpurmc.org/" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/PurpurMC-3a3865?style=for-the-badge" alt="purpur"/></a>
-
+    <!-- Java -->
+    <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" alt="java"/></a>
+    <!-- Discord API -->
+    <a href="https://discord.com/" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/Discord_API-36393e?style=for-the-badge&logo=discord&logoColor=white" alt="discord"/></a>
+    <!-- Spigot -->
+    <a href="https://www.spigotmc.org/" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/spigot-FF6F00?style=for-the-badge" alt="spigot"/></a>
+    <!-- PaperMC (Spigot fork) -->
+    <a href="https://papermc.io/" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/papermc-4d4c4c?style=for-the-badge" alt="papermc"/></a>
+    <!-- Purpur (Spigot fork) -->
+    <a href="https://purpurmc.org/" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/PurpurMC-3a3865?style=for-the-badge" alt="purpur"/></a>
 </p>
 
 EasyDiscordBridge is plugin that allows a connection between Minecraft- and Discord chat.
