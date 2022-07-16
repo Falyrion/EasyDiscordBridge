@@ -20,7 +20,7 @@ EasyDiscordBridge is a plugin that allows a connection between Minecraft- and Di
 - Display game-server start or stop in discord chat
 - Show in-game events on your discord server, like player join and quits or player deaths
 
-This plugin was made for bukkit 1.17+. The discord functionality was made by utilizing the Java Discord API [JDA](https://github.com/DV8FromTheWorld/JDA).
+This plugin was made for Spigot 1.17+. The discord functionality was made by utilizing the Java Discord API [JDA](https://github.com/DV8FromTheWorld/JDA).
 
 ### Contents
 - [Setup](#setup)
