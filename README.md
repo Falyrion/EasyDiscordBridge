@@ -16,7 +16,7 @@
 
 EasyDiscordBridge is a plugin that allows a connection between Minecraft- and Discord chat.
 
-- Messages sent on your discord server will be displayed in the game chat and vice versa.
+- Messages sent on your discord server will be displayed in the game chat and vice versa
 - Display game-server start or stop in discord chat
 - Show in-game events on your discord server, like player join and quits or player deaths
 
