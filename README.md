@@ -36,7 +36,7 @@ Your server needs to run bukkit or any fork of bukkit (spigot, paper, sponge, et
 To use this plugin you need to set up a discord bot:
 1. Navigate to https://discord.com/developers/applications and create a new application. You can choose whatever name 
 fits your need.
-2. In your new application, go to `Settings -> Bot` and create a bot. You can choose whatever name fits your need. This
+2. In your new application, navigate to the section `Bot` and create a bot. You can choose whatever name fits your need. This
 name will be the default display name of the bot on your discord server.
 3. In your bots settings you will find the `token`. Save it for later steps. This token is important. Keep it always a 
 secret!
