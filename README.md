@@ -40,7 +40,7 @@ fits your need.
 name will be the default display name of the bot on your discord server.
 3. In your bots settings you will find the `token`. Save it for later steps. This token is important. Keep it always a 
 secret!
-4. In your application under `Settings -> OAuth2` find your `client ID`. With that ID you can invite your new bot to 
+4. In your application in the section `OAuth2` you will find your `client ID`. With that ID you can invite your new bot to 
 your discord server. To do so, navigate to `discordapp.com/oauth2/authorize?client_id=XXXXXXX&scope=bot` but replace 
 the "XXXXXXX" with your client ID.
 5. After inviting the bot, he will appear in the user list of your server. Yet he will be marked as "offline" but that
