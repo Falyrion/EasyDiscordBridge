@@ -4,8 +4,10 @@
 <p align="left">
     <!-- Java -->
     <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" alt="java"/></a>
+    <!-- Discord -->
+    <a href="https://discord.com/" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/Discord-36393e?style=for-the-badge&logo=discord&logoColor=white" alt="discord"/></a>
     <!-- Discord API -->
-    <a href="https://discord.com/" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/Discord_API-36393e?style=for-the-badge&logo=discord&logoColor=white" alt="discord"/></a>
+    <a href="https://github.com/DV8FromTheWorld/JDA" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/JDA-14354C?style=for-the-badge&logo=discord&logoColor=white" alt="discord"/></a>
     <!-- Spigot -->
     <a href="https://www.spigotmc.org/" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/spigot-FF6F00?style=for-the-badge" alt="spigot"/></a>
     <!-- PaperMC (Spigot fork) -->
