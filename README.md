@@ -66,7 +66,7 @@ After you restarted the server, you will find a new folder in your server's plug
 Navigate into that folder and open the `config.yml` file inside with a text editor of your choice.
 
 Inside the config lookout for the following parts:
-- `clientID` -> Replace the "0" with your client-ID
+- `clientID` -> Replace the "0" with your bots token
 - `textChannelRead` -> Replace the "0" with the ID of the channel you want the bot to read messages from
 - `textChannelWrite` -> Replace the "0" with the ID of the channel you want the bot to send messages to
 
